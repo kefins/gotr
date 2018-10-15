@@ -65,9 +65,9 @@ class GoTrPanel(wx.Panel):
         self.GoTranslator = GoTr()
 
         #中文StaticText控件
-        self.cLabel = wx.StaticText(self, label="中文: ")
+        self.cLabel = wx.StaticText(self, label="转换前: ")
         #中文TextCtrl控件
-        self.cContent = wx.TextCtrl(self, -1, "在此输入中文...", size=(500, 250),
+        self.cContent = wx.TextCtrl(self, -1, "在此输入原文...", size=(500, 250),
                                style=wx.TE_MULTILINE|wx.TE_PROCESS_ENTER|wx.TE_NOHIDESEL)
         #中文文本控件操作按钮
         self.buttonCSelectAll = wx.Button(self, -1, "全选")
@@ -86,20 +86,26 @@ class GoTrPanel(wx.Panel):
         self.buttonCBoxSizer.Add(self.buttonCPaste,     0, wx.ALL, 5)
 
         #安装两个按键
-        self.buttonC2E = wx.Button(self, -1, "中文->英文")
-        self.Bind(wx.EVT_BUTTON, self.OnButtonC2E, self.buttonC2E)
-        self.buttonE2C = wx.Button(self, -1, "英文->中文")
-        self.Bind(wx.EVT_BUTTON, self.OnButtonE2C, self.buttonE2C)
+        #self.buttonC2E = wx.Button(self, -1, "中文->英文")
+        #self.Bind(wx.EVT_BUTTON, self.OnButtonC2E, self.buttonC2E)
+        #self.buttonE2C = wx.Button(self, -1, "英文->中文")
+        #self.Bind(wx.EVT_BUTTON, self.OnButtonE2C, self.buttonE2C)
+
+        #安装转换按键
+        self.buttonTransform = wx.Button(self, -1, "转换")
+        self.Bind(wx.EVT_BUTTON, self.OnButtonTransform, self.buttonTransform)
 
         self.buttonTrBoxSizer = wx.BoxSizer(wx.HORIZONTAL)
-        self.buttonTrBoxSizer.Add(self.buttonC2E, 0, wx.GROW|wx.ALL, 20)
-        self.buttonTrBoxSizer.AddSpacer(80)
-        self.buttonTrBoxSizer.Add(self.buttonE2C, 0, wx.GROW|wx.ALL, 20)
+        #self.buttonTrBoxSizer.Add(self.buttonC2E, 0, wx.GROW|wx.ALL, 20)
+        #self.buttonTrBoxSizer.AddSpacer(80)
+        #self.buttonTrBoxSizer.Add(self.buttonE2C, 0, wx.GROW|wx.ALL, 20)
+        self.buttonTrBoxSizer.Add(self.buttonTransform, 0, wx.GROW|wx.ALL, 20)
+
 
         #英文StaticText控件
-        self.eLabel = wx.StaticText(self, label="英文: ")
+        self.eLabel = wx.StaticText(self, label="转换后: ")
         #英文TextCtrl控件
-        self.eContent = wx.TextCtrl(self, -1, "input english content...", size=(500, 250),
+        self.eContent = wx.TextCtrl(self, -1, "此处为转换后的...", size=(500, 250),
                                style=wx.TE_MULTILINE|wx.TE_PROCESS_ENTER|wx.TE_NOHIDESEL)
 
         #英文文本控件操作按钮
@@ -196,6 +202,14 @@ class GoTrPanel(wx.Panel):
 
     def OnButtonEPaste(self, evt):
         self.eContent.Paste()
+
+    def OnButtonTransform(self, evt):
+        engResult = self.GoTranslator.google_translate_CtoE(self.cContent.GetValue())
+        chnResult = self.GoTranslator.google_translate_EtoC(engResult)
+
+        self.eContent.Clear()
+        self.eContent.SetValue(chnResult)
+
 
 
 class GoTrFrame(wx.Frame):
