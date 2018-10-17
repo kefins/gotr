@@ -65,9 +65,9 @@ class GoTrPanel(wx.Panel):
         self.GoTranslator = GoTr()
 
         #中文StaticText控件
-        self.cLabel = wx.StaticText(self, label="转换前: ")
+        self.cLabel = wx.StaticText(self, label="原文: ")
         #中文TextCtrl控件
-        self.cContent = wx.TextCtrl(self, -1, "在此输入原文...", size=(500, 250),
+        self.cContent = wx.TextCtrl(self, -1, size=(500, 250),
                                style=wx.TE_MULTILINE|wx.TE_PROCESS_ENTER|wx.TE_NOHIDESEL)
         #中文文本控件操作按钮
         self.buttonCSelectAll = wx.Button(self, -1, "全选")
@@ -92,7 +92,7 @@ class GoTrPanel(wx.Panel):
         #self.Bind(wx.EVT_BUTTON, self.OnButtonE2C, self.buttonE2C)
 
         #安装转换按键
-        self.buttonTransform = wx.Button(self, -1, "转换")
+        self.buttonTransform = wx.Button(self, -1, "开始")
         self.Bind(wx.EVT_BUTTON, self.OnButtonTransform, self.buttonTransform)
 
         self.buttonTrBoxSizer = wx.BoxSizer(wx.HORIZONTAL)
@@ -103,9 +103,9 @@ class GoTrPanel(wx.Panel):
 
 
         #英文StaticText控件
-        self.eLabel = wx.StaticText(self, label="转换后: ")
+        self.eLabel = wx.StaticText(self, label="新文: ")
         #英文TextCtrl控件
-        self.eContent = wx.TextCtrl(self, -1, "此处为转换后的...", size=(500, 250),
+        self.eContent = wx.TextCtrl(self, -1, size=(500, 250),
                                style=wx.TE_MULTILINE|wx.TE_PROCESS_ENTER|wx.TE_NOHIDESEL)
 
         #英文文本控件操作按钮
